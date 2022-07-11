@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 12:35:35 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/05 15:17:31 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	ft_putstr_fd("Please provider all arguments:\n", 1);
-	ft_putstr_fd("./pipex INFILE CMD1 CMD2 OUTFILE\n", 1);
-}
+	size_t	i;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
-	{
-		print_usage();
-		return (1);
-	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

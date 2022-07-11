@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 12:35:35 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/10 17:55:28 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	ft_putstr_fd("Please provider all arguments:\n", 1);
-	ft_putstr_fd("./pipex INFILE CMD1 CMD2 OUTFILE\n", 1);
-}
+	unsigned int	i;
+	char			*result;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
+	i = 0;
+	if (!s || (!s && !f))
+		return (ft_strdup(""));
+	if (!f)
+		return (ft_strdup(s));
+	result = ft_strdup(s);
+	if (!result)
+		return (NULL);
+	while (s[i])
 	{
-		print_usage();
-		return (1);
+		result[i] = (*f)(i, s[i]);
+		i++;
 	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	return (result);
 }

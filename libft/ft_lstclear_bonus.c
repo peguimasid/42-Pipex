@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 12:35:35 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/15 12:18:55 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	ft_putstr_fd("Please provider all arguments:\n", 1);
-	ft_putstr_fd("./pipex INFILE CMD1 CMD2 OUTFILE\n", 1);
-}
+	t_list	*current_node;
+	t_list	*next_node;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
+	current_node = *lst;
+	while (current_node)
 	{
-		print_usage();
-		return (1);
+		next_node = current_node->next;
+		ft_lstdelone(current_node, del);
+		current_node = next_node;
 	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	*lst = NULL;
 }

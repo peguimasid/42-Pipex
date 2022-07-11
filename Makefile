@@ -6,29 +6,35 @@
 #    By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 16:42:45 by gmasid            #+#    #+#              #
-#    Updated: 2022/07/11 11:38:46 by gmasid           ###   ########.fr        #
+#    Updated: 2022/07/11 12:33:20 by gmasid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex
-SRC = pipex.c utils.c
-OBJ = $(SRC:c=o)
+CC=cc
+NAME=pipex
+CFLAGS=-Wall -Wextra -Werror
+OPTIONS=-c -Iheaders/
+LIBFT=./libft/libft.a
+SRC=pipex.c utils.c
+OBJ=*.o
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	cc -Wall -Wextra -Werror -o $(NAME) $(OBJ)
+	cd libft && make
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(LIBFT)
 
-.o: .c
-	cc -Wall -Wextra -Werror -c $< -o $@
+$(OBJ): $(SRC)
+	$(CC) $(CFLAGS) $(OPTIONS) $(SRC)
 
 clean:
 	rm -f $(OBJ)
+	cd libft && make clean
 
-fclean:
-	rm -f $(OBJ)
+fclean: clean
 	rm -f $(NAME)
+	cd libft && make fclean
 
 re: fclean all
 
-.PHONY: clean fclean re
+.PHONY: clean fclean all re

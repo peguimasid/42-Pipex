@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 12:35:35 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/14 10:25:18 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	ft_putstr_fd("Please provider all arguments:\n", 1);
-	ft_putstr_fd("./pipex INFILE CMD1 CMD2 OUTFILE\n", 1);
-}
+	t_list	*tail;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
+	if (!new)
+		return ;
+	if (!*alst)
 	{
-		print_usage();
-		return (1);
+		*alst = new;
+		return ;
 	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	tail = ft_lstlast(*alst);
+	tail->next = new;
 }

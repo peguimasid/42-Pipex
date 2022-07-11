@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 12:35:35 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/06 12:03:46 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	ft_putstr_fd("Please provider all arguments:\n", 1);
-	ft_putstr_fd("./pipex INFILE CMD1 CMD2 OUTFILE\n", 1);
-}
+	size_t				i;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
+	i = 0;
+	str1 = (const unsigned char *)(s1);
+	str2 = (const unsigned char *)(s2);
+	while (i < n)
 	{
-		print_usage();
-		return (1);
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	return (0);
 }

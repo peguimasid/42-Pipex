@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 12:35:35 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/03 13:50:20 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	ft_putstr_fd("Please provider all arguments:\n", 1);
-	ft_putstr_fd("./pipex INFILE CMD1 CMD2 OUTFILE\n", 1);
-}
+	char	*dest_tmp;
+	char	*src_tmp;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
+	dest_tmp = (char *)dst;
+	src_tmp = (char *)src;
+	if (dst == src)
+		return (dst);
+	if (src_tmp < dest_tmp)
 	{
-		print_usage();
-		return (1);
+		while (len--)
+			*(dest_tmp + len) = *(src_tmp + len);
+		return (dst);
 	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	while (len--)
+		*dest_tmp++ = *src_tmp++;
+	return (dst);
 }
