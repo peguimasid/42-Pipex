@@ -6,47 +6,43 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 14:59:59 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/11 18:41:37 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
 
-int	main(void)
+int	print_usage(void)
 {
-	int	fd[2];
-	int	id;
-	int	x;
-	int	y;
+	ft_putstr_fd("Please provide all arguments:\n\n", 1);
+	ft_putstr_fd("Usage: ./pipex INFILE CMD1 CMD2 OUTFILE\n\n", 1);
+	return (1);
+}
 
-	// fd[0] - read
-	// fd[1] - write
-	pipe(fd);
+void	process_child_expression(char *command, char *file, int end[2])
+{
+	printf("CHILD <> command = %s | file = %s | %d\n", command, file, end[0]);
+}
+
+void	process_parent_expression(char *command, char *file, int end[2])
+{
+	waitpid(0, NULL, 0);
+	printf("PARENT <> command = %s | file = %s | %d\n", command, file, end[0]);
+}
+
+int	main(int argc, char *argv[])
+{
+	int	end[2];
+	int	id;
+
+	if (argc != 5)
+		return (print_usage());
+	pipe(end);
 	id = fork();
-	// we're in the child process
 	if (id == 0)
-	{
-		// close because we not gonna read, just write
-		close(fd[0]);
-		printf("input a number: ");
-		scanf("%d", &x);
-		// set fd[1] to be x
-		write(fd[1], &x, sizeof(int));
-		// at this point, we close write end and the parent process
-		// has access to that data we write in his read end (fd[0])
-		close(fd[1]);
-	}
-	// we're in the parent process
+		process_child_expression(argv[2], argv[1], end);
 	else
-	{
-		// close because we not gonna write data, just read
-		close(fd[1]);
-		// read the value that child process got
-		read(fd[0], &y, sizeof(int));
-		// close the read end
-		close(fd[0]);
-		// print that value
-		printf("got from child process: %d", y);
-	}
+		process_parent_expression(argv[3], argv[4], end);
+	return (0);
 }
