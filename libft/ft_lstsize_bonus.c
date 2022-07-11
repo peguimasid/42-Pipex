@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/11 11:02:54 by gmasid           ###   ########.fr       */
+/*   Created: 2022/05/12 15:15:57 by gmasid            #+#    #+#             */
+/*   Updated: 2022/05/17 12:07:52 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-void	print_usage(void)
+int	ft_lstsize(t_list *lst)
 {
-	printf("Please provider all arguments:");
-	printf("./pipex INFILE CMD1 CMD2 OUTFILE");
-}
+	int	result;
 
-int	main(int argc, char *argv[])
-{
-	if (argc != 5)
+	result = 0;
+	while (lst)
 	{
-		print_usage();
+		lst = lst->next;
+		result++;
 	}
-	printf("%d\n", argc);
-	printf("%s %s %s %s", argv[1], argv[2], argv[3], argv[4]);
+	return (result);
 }
