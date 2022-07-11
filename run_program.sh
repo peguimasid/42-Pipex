@@ -1,0 +1,1 @@
+make -s && ./pipex infile.txt "cat" "grep 42" outfile.txt && make -s fclean
