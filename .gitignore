@@ -2,7 +2,7 @@
 */**/.o
 */**/.out
 
-
+.vscode
 pipex
 *.a
 *.o

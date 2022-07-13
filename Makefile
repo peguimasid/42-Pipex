@@ -6,7 +6,7 @@
 #    By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 16:42:45 by gmasid            #+#    #+#              #
-#    Updated: 2022/07/11 12:33:20 by gmasid           ###   ########.fr        #
+#    Updated: 2022/07/13 12:56:30 by gmasid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,26 +14,27 @@ CC=cc
 NAME=pipex
 CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-c -Iheaders/
-LIBFT=./libft/libft.a
+LIBFT=./ft_printf/libft/libft.a
+FT_PRINTF=./ft_printf/libftprintf.a
 SRC=pipex.c utils.c
 OBJ=*.o
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	cd libft && make
-	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(LIBFT)
+	cd ft_printf && make
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(LIBFT) $(FT_PRINTF)
 
 $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) $(OPTIONS) $(SRC)
 
 clean:
 	rm -f $(OBJ)
-	cd libft && make clean
+	cd ft_printf && make clean
 
 fclean: clean
 	rm -f $(NAME)
-	cd libft && make fclean
+	cd ft_printf && make fclean
 
 re: fclean all
 
