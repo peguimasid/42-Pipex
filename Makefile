@@ -6,7 +6,7 @@
 #    By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/07 16:42:45 by gmasid            #+#    #+#              #
-#    Updated: 2022/07/13 12:56:30 by gmasid           ###   ########.fr        #
+#    Updated: 2022/07/14 19:41:26 by gmasid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-c -Iheaders/
 LIBFT=./ft_printf/libft/libft.a
 FT_PRINTF=./ft_printf/libftprintf.a
-SRC=pipex.c utils.c
+SRC=./src/pipex.c ./src/utils.c
 OBJ=*.o
 
 all: $(NAME)

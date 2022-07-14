@@ -6,11 +6,11 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 14:19:50 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/13 19:34:55 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/14 19:43:08 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 int	print_usage(void)
 {
@@ -21,18 +21,28 @@ int	print_usage(void)
 	return (1);
 }
 
-void	error(void)
+void	throw_error(void)
 {
 	perror("\033[31mError");
 	exit(EXIT_FAILURE);
 }
 
+void	free_pointer_and_contents(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+		free(ptr[i++]);
+	free(ptr);
+}
+
 char	*find_path(char *cmd, char **envp)
 {
-	char	**paths;
-	char	*path;
 	int		i;
+	char	**paths;
 	char	*part_path;
+	char	*cmd_path;
 
 	i = 0;
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
@@ -42,38 +52,31 @@ char	*find_path(char *cmd, char **envp)
 	while (paths[i])
 	{
 		part_path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(part_path, cmd);
+		cmd_path = ft_strjoin(part_path, cmd);
 		free(part_path);
-		if (access(path, F_OK) == 0)
-			return (path);
-		free(path);
+		if (access(cmd_path, F_OK) == 0)
+		{
+			free_pointer_and_contents(paths);
+			return (cmd_path);
+		}
 		i++;
 	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
+	free_pointer_and_contents(paths);
 	return (0);
 }
 
-/* Function that take the command and send it to find_path
- before executing it. */
-void	execute(char *argv, char **envp)
+void	execute(char *command, char **envp)
 {
 	char	**cmd;
-	int		i;
 	char	*path;
 
-	i = -1;
-	cmd = ft_split(argv, ' ');
+	cmd = ft_split(command, ' ');
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		while (cmd[++i])
-			free(cmd[i]);
-		free(cmd);
-		error();
+		free_pointer_and_contents(cmd);
+		throw_error();
 	}
 	if (execve(path, cmd, envp) == -1)
-		error();
+		throw_error();
 }

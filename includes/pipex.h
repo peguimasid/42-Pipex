@@ -6,15 +6,15 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 11:13:44 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/13 19:03:34 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/14 19:43:28 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "./ft_printf/ft_printf.h"
-# include "./ft_printf/libft/libft.h"
+# include "../ft_printf/ft_printf.h"
+# include "../ft_printf/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -29,9 +29,9 @@
 # define OUTFILE 1
 
 int		openfile(char *filename, int mode);
-void	execute(char *argv, char **envp);
+void	execute(char *command, char **envp);
 
 int		print_usage(void);
-void	error(void);
+void	throw_error(void);
 
 #endif
