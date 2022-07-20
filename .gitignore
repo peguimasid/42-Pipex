@@ -10,3 +10,4 @@ pipex
 
 *.txt
 run_program.sh
+.DS_Store
