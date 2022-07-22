@@ -6,7 +6,7 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 14:19:50 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/22 18:15:29 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/22 18:38:13 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	openfile(char *filename, int mode)
 {
 	if (mode == INFILE)
 	{
-		if (access(filename, F_OK))
+		if (access(filename, F_OK) != 0)
 		{
 			write(STDERR, "pipex: ", 7);
 			write(STDERR, filename, str_ichr(filename, 0));
 			write(STDERR, ": No such file or directory\n", 28);
-			return (STDIN);
+			return (0);
 		}
 		return (open(filename, O_RDONLY));
 	}

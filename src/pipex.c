@@ -6,7 +6,7 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/22 18:22:34 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/22 18:45:28 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 // so parent process can access
 void	process_child_expression(char *cmd, int fdin, int pipefd[2], char **env)
 {
+	if (!fdin)
+		exit(1);
 	close(pipefd[0]);
 	dup2(pipefd[1], STDOUT);
-	if (fdin == STDIN)
-		exit(1);
-	else
-		execute(cmd, env);
+	execute(cmd, env);
 }
 
 // This function will execute the second command taking as input
@@ -35,8 +34,8 @@ void	process_parent_expression(char *command, int pipefd[2], char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	int		pipefd[2];
 	pid_t	pid;
+	int		pipefd[2];
 	int		infilefd;
 	int		outfilefd;
 
