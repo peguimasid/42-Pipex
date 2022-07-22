@@ -6,7 +6,7 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 11:13:44 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/14 19:43:28 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/22 18:18:44 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	execute(char *command, char **envp);
 
 int		print_usage(void);
 void	throw_error(void);
+int		str_ichr(char *str, char c);
 
 #endif

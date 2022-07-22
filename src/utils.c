@@ -6,25 +6,39 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 14:19:50 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/14 19:43:08 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/22 18:15:29 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	print_usage(void)
+int	str_ichr(char *str, char c)
 {
-	ft_printf("\033[0;31m\n");
-	ft_printf("Please provide all arguments:\n\n");
-	ft_printf("Usage: ./pipex <file1> <cmd1> <cmd2> <file2>\n\n");
-	ft_printf("\033[0m");
-	return (1);
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (str[i] == c)
+		return (i);
+	return (-1);
 }
 
-void	throw_error(void)
+int	openfile(char *filename, int mode)
 {
-	perror("\033[31mError");
-	exit(EXIT_FAILURE);
+	if (mode == INFILE)
+	{
+		if (access(filename, F_OK))
+		{
+			write(STDERR, "pipex: ", 7);
+			write(STDERR, filename, str_ichr(filename, 0));
+			write(STDERR, ": No such file or directory\n", 28);
+			return (STDIN);
+		}
+		return (open(filename, O_RDONLY));
+	}
+	else
+		return (open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 }
 
 void	free_pointer_and_contents(char **ptr)
@@ -62,7 +76,7 @@ char	*find_path(char *cmd, char **envp)
 		i++;
 	}
 	free_pointer_and_contents(paths);
-	return (0);
+	return (cmd);
 }
 
 void	execute(char *command, char **envp)
@@ -71,12 +85,13 @@ void	execute(char *command, char **envp)
 	char	*path;
 
 	cmd = ft_split(command, ' ');
-	path = find_path(cmd[0], envp);
-	if (!path)
-	{
-		free_pointer_and_contents(cmd);
-		throw_error();
-	}
-	if (execve(path, cmd, envp) == -1)
-		throw_error();
+	if (str_ichr(cmd[0], '/') > -1)
+		path = cmd[0];
+	else
+		path = find_path(cmd[0], envp);
+	execve(path, cmd, envp);
+	write(STDERR, "pipex: ", 7);
+	write(STDERR, command, str_ichr(command, 0));
+	write(STDERR, ": command not found\n", 20);
+	exit(127);
 }

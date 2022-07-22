@@ -10,4 +10,5 @@ pipex
 
 *.txt
 run_program.sh
+run_tests.sh
 .DS_Store
