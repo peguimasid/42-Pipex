@@ -6,7 +6,7 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 14:19:50 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/22 18:38:13 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/23 16:58:39 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ int	openfile(char *filename, int mode)
 			write(STDERR, "pipex: ", 7);
 			write(STDERR, filename, str_ichr(filename, 0));
 			write(STDERR, ": No such file or directory\n", 28);
+			return (0);
+		}
+		if (access(filename, R_OK) != 0)
+		{
+			write(STDERR, "pipex: ", 7);
+			write(STDERR, "permission denied:", 28);
+			write(STDERR, filename, str_ichr(filename, 0));
+			write(STDERR, "\n", 1);
 			return (0);
 		}
 		return (open(filename, O_RDONLY));
