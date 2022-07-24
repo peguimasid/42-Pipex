@@ -6,7 +6,7 @@
 /*   By: gmasid <gmasid@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 10:59:07 by gmasid            #+#    #+#             */
-/*   Updated: 2022/07/22 18:45:28 by gmasid           ###   ########.fr       */
+/*   Updated: 2022/07/23 23:18:17 by gmasid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	process_child_expression(char *cmd, int fdin, int pipefd[2], char **env)
 
 // This function will execute the second command taking as input
 // the output of the first command and send to outfile
-void	process_parent_expression(char *command, int pipefd[2], char **env)
+void	process_parent_expression(char *cmd, int pipefd[2], char **env)
 {
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN);
-	execute(command, env);
+	execute(cmd, env);
 }
 
 int	main(int argc, char **argv, char **env)
