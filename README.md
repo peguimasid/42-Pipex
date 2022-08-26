@@ -27,14 +27,15 @@ forty two 42
 What am i doing here?
 ```
 
-## Run
+2. Run the program passing the infile and outfile of the commands.
 
 ```sh
  make && infile.txt "cat" "grep 42" outfile.txt
  cat outfile.txt
 ```
 
-## Run `cat outfile.txt` and you going to see:
+
+3. Run `cat outfile.txt` and you going to see the output of the commands:
 
 ```
 I'm going to catch this line because contain a "42" string
