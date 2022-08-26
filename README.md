@@ -1,5 +1,5 @@
 <h1 align="center">Welcome to pipex 👋</h1>
-<p>🖨 Recreating printf function of C programming language
+<p>🧪 Project to understand more about pipes, processes and file manipulation
 
 ---
 
